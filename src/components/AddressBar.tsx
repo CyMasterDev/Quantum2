@@ -190,7 +190,7 @@ export function AddressBar() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="w-full h-10 bg-white/0 rounded-2xl pl-12 pr-4
+            className="w-full h-12 bg-white/0 rounded-2xl pl-12 pr-4
                  text-sm text-white placeholder-white/40 
                  focus:outline-none focus:ring-2 focus:ring-white/20 
                  focus:bg-white/10 transition-all shadow-lg shadow-white/5 backdrop-blur-lg"
