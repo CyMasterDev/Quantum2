@@ -15,6 +15,7 @@ function App() {
 
     // Register service worker with proper scope and type
     if ('serviceWorker' in navigator) {
+      console.log("service worker");
       navigator.serviceWorker.register('/uv/sw.js', {
         scope: '/uv/service',
         type: 'classic',
@@ -24,7 +25,7 @@ function App() {
   }, [addTab]);
 
   return (
-    <div className="flex h-screen bg-gradient-to-br from-gray-900 to-black text-white">
+    <div className="flex h-screen bg-gradient-to-br from-dark-4 to-dark-2">
       <Sidebar />
       <Browser />
     </div>

@@ -25,7 +25,7 @@ export const useBrowserStore = create<BrowserState>((set) => ({
   addTab: (tab) => set((state) => {
     const newTab = { ...tab, id: Math.random().toString(36).slice(2) };
     return {
-      tabs: [...state.tabs, newTab],
+      tabs: [newTab, ...state.tabs],
       activeTabId: newTab.id,
     };
   }),

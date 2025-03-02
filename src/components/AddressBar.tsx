@@ -3,7 +3,6 @@ import { Search, Lock, ChevronLeft, ChevronRight, RotateCw, ShieldAlert, Setting
 import { useBrowserStore } from '../store/browser';
 import { useSettingsStore } from '../store/settings';
 import { cn } from '../lib/utils';
-import { handleSettingsClick } from './Sidebar';
 
 export function AddressBar() {
   const { tabs, activeTabId, updateTab, setLoading, addTab, setActiveTab } = useBrowserStore();
@@ -11,18 +10,16 @@ export function AddressBar() {
   const activeTab = tabs.find(tab => tab.id === activeTabId);
   const [input, setInput] = useState(activeTab?.url || '');
   const [isSecure, setIsSecure] = useState<boolean | null>(null);
-  
+
   const handleSettingsClick = () => {
-  // If there's already a settings tab, activate it
-  const settingsTab = tabs.find(tab => tab.url === 'browser://settings');
-  if (settingsTab) {
-    setActiveTab(settingsTab.id);
-  } else {
-    // Create a new settings tab
-    addTab({
-      url: 'browser://settings',
-      title: 'Settings',
-      favicon: 'data:image/svg+xml,' + encodeURIComponent(`
+    const settingsTab = tabs.find(tab => tab.url === 'browser://settings');
+    if (settingsTab) {
+      setActiveTab(settingsTab.id);
+    } else {
+      addTab({
+        url: 'browser://settings',
+        title: 'Settings',
+        favicon: 'data:image/svg+xml,' + encodeURIComponent(`
         <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings">
         <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
         <circle cx="12" cy="12" r="3"/>
@@ -148,36 +145,35 @@ export function AddressBar() {
   };
 
   return (
-    <div className="flex items-center gap-3 w-full max-w-4xl mx-auto px-6 py-3">
+    <div className="flex items-center gap-3 w-full mx-auto px-6 py-3">
       <div className="flex items-center gap-2">
         <button
-          className="w-10 h-10 rounded-2xl hover:bg-white/10 flex items-center justify-center
-               transition-transform active:scale-90 shadow-lg shadow-white/5
-               backdrop-blur-lg"
+          className="w-10 h-10 rounded-full hover:bg-white/10 flex items-center justify-center
+               transition-all active:scale-90 shadow-lg shadow-white/5
+               backdrop-blur-lg active:bg-white/20 active:shadow-white/10 xs:hidden sm:flex"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
-          className="w-10 h-10 rounded-2xl hover:bg-white/10 flex items-center justify-center
-               transition-transform active:scale-90 shadow-lg shadow-white/5
-               backdrop-blur-lg"
+          className="w-10 h-10 rounded-full hover:bg-white/10 flex items-center justify-center
+               transition-all active:scale-90 shadow-lg shadow-white/5
+               backdrop-blur-lg active:bg-white/20 active:shadow-white/10 xs:hidden sm:flex"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
         <button
           className={cn(
-            "w-10 h-10 rounded-2xl hover:bg-white/10 flex items-center justify-center",
-            "transition-all active:scale-90 shadow-lg shadow-white/5 backdrop-blur-lg",
-            activeTab?.loading && "animate-spin"
+            "w-10 h-10 rounded-full hover:bg-white/10 flex items-center justify-center",
+            "transition-all active:scale-90 shadow-lg shadow-white/5 backdrop-blur-lg active:bg-white/20 active:shadow-white/10 xs:hidden sm:flex",
           )}
         >
-          <RotateCw className="w-4 h-4" />
+          <RotateCw className="w-4 h-4 hover:animate-spin" />
         </button>
       </div>
 
       <form onSubmit={handleSubmit} className="flex-1">
-        <div className="relative group">
-          <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+        <div className="relative group active:scale-[0.98]">
+          <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none z-10">
             {isSecure === null ? (
               <Search className="h-4 w-4 text-white group-focus-within:text-white" />
             ) : isSecure ? (
@@ -190,22 +186,22 @@ export function AddressBar() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="w-full h-12 bg-white/0 rounded-2xl pl-12 pr-4
+            className="w-full h-10 bg-white/0 rounded-full pl-12 pr-4
                  text-sm text-white placeholder-white/40 
                  focus:outline-none focus:ring-2 focus:ring-white/20 
-                 focus:bg-white/10 transition-all shadow-lg shadow-white/5 backdrop-blur-lg"
+                 focus:bg-white/20 transition-all shadow-lg shadow-white/5 backdrop-blur-lg focus:shadow-white/10"
             placeholder="Search the web or enter URL"
           />
         </div>
       </form>
-        <button
-          onClick={handleSettingsClick}
-          className="w-10 h-10 rounded-2xl hover:bg-white/10 flex items-center justify-center
-               transition-transform active:scale-90 shadow-lg shadow-white/5
-               backdrop-blur-lg"
-        >
-          <Settings className="w-5 h-5" />
-        </button>
+      <button
+        onClick={handleSettingsClick}
+        className="w-10 h-10 rounded-full hover:bg-white/10 flex items-center justify-center
+               transition-all active:scale-90 shadow-lg shadow-white/5
+               backdrop-blur-lg active:bg-white/20 active:shadow-white/10 xs:hidden sm:flex"
+      >
+        <Settings className="w-5 h-5" />
+      </button>
     </div>
   );
 }
