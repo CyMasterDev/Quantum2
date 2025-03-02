@@ -1,3 +1,3 @@
-# browser-test
+# Zen Browser
 
-[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/CyMasterDev/browser-test)
+[Edi ⚡️](https://bolt.new/github.com/CyMasterDev/Zen-browser)
