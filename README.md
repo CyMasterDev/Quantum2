@@ -1,3 +1,3 @@
 # Zen Browser
 
-[Edi ⚡️](https://bolt.new/github.com/CyMasterDev/Zen-browser)
+[Edit](https://bolt.new/github.com/CyMasterDev/Zen-browser)
